@@ -16,7 +16,6 @@ router.post("/register",async(req,res)=>{
     }
 })
 
-
 //login処理
 // 1 postmanで入力した、emailがユーザーのemailと一致しているか照合する
 // 2 照合しなかった場合、エラーメッセージでユーザーが見つかりませんでした。と出力させる
@@ -28,20 +27,19 @@ router.post("/register",async(req,res)=>{
 router.post("/login", async(req, res) => {
     //psotmanを使ってユーザーがの照合を確認する想定の記述↓
     try{
-        const user = await User.findOne({email: req.body.email})
+        const user = await User.findOne({email: req.body.email}) //ユーザーモデル内からemailを探す処理、無かったらcatch分に移る
         if (!user) return res.status(404).send("ユーザーが見つかりませんでした。")
-
         //３〜４のパスワード照合列挙内容その1
-        const legsterUser = req.body.password === user.password　//trueの場合36行目のコード処理に移る falseの場合!legsterUserの処理に入る
-        if (!legsterUser) return res.status(404).json("ユーザーが見つかりませんでした。")
-        return res.status(200).json(user)
+        // const vailedPassword = req.body.password === user.password　//trueの場合36行目のコード処理に移る falseの場合!legsterUserの処理に入る
+        // if (!vailedPassword) return res.status(404).json("ユーザーが見つかりませんでした。")
+        // return res.status(200).json(user)
 
         // //３〜４のパスワード照合列挙内容その２
-        // if (user.password === req.body.password) {
-        //     return res.status(200).json(user)
-        // }else{
-        //     return res.status(400).json("パスワードが一致しませんでした。") //false
-        // }
+        if (user.password === req.body.password) {
+            return res.status(200).json(user)
+        }else{
+            return res.status(400).json("パスワードが一致しませんでした。") //false
+        }
     }catch (e) {
         return res.status(500).json(e)
     }

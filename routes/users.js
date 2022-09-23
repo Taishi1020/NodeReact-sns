@@ -60,7 +60,7 @@ router.put("/:id/follow", async (req, res) => {
                     }
                 )
                 return res.status(200).json("フォローに成功しました！")
-            }else{
+            } else {
                 return res.status(403).json("あなたはすでにフォローしています。")
             }
         } catch (e) {
@@ -92,7 +92,7 @@ router.put("/:id/unfollow", async (req, res) => {
                     }
                 )
                 return res.status(200).json("フォロー解除しました！")
-            }else{
+            } else {
                 return res.status(403).json("このユーザーはフォローを解除できません。")
             }
         } catch (e) {
@@ -102,5 +102,29 @@ router.put("/:id/unfollow", async (req, res) => {
         return res.status(500).json("自分自身はフォローできません。")
     }
 })
+
+//Password リセット
+// router.post("/PasswordReset", async (req, res) => {
+//     try {
+//         const CrrentUser = await User.findById(req.params.id)
+//         const PasswordRsetUser = await User.findOne({email: req.body.email})
+//
+//         if (CrrentUser == PasswordRsetUser){
+//             const DeletePassword = await User.findOneAndDelete({password: req.params.password})
+//             if (!DeletePassword) return res.status(403).json("パスワードの削除時にエラーが発生しました。")
+//             const NewPassword  = await new User({
+//                 password: req.body.password
+//             })
+//             const NewLegisterPassword = await NewPassword.save();
+//             return res.status(200).json(NewLegisterPassword)
+//         }else{
+//             return res.status(400).json("前回登録したメールアドレスと一致しませんでした。")
+//         }
+//     } catch (e) {
+//         res.status(500).json(e)
+//     }
+//
+// })
+
 module.exports = router;
 

@@ -80,4 +80,21 @@ router.put("/:id/like", async (req, res) => {
         return res.status(400).json(e)
     }
 })
+
+//タイムラインAPI実装
+router.get("/timeline/all", async(req, res) => {
+    try{
+        const currentUser = await User.findById(req.body.userId);
+        const userPosts = await Post.find({userId: currentUser._id})
+        //自分がフォローしている友度断ちの投稿内容を全て取得する
+        const friendPosts = await Promise.all(
+            currentUser.followings.map((friendId) => {
+                return Post.find({userId: friendId});
+            })
+        )
+        return res.status(200).json(userPosts.concat(...friendPosts))
+     }catch (e) {
+        return res.status(500).json(e)
+    }
+})
 module.exports = router;

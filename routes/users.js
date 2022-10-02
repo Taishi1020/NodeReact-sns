@@ -23,7 +23,7 @@ router.delete("/:id", async (req, res) => {
     try {
         const deleteUser = await User.findByIdAndDelete(req.params.id)
         console.log(deleteUser)
-        res.status(200).json("ユーザー情報の削除が完了しました。")
+        return res.status(200).json("ユーザー情報の削除が完了しました。")
     } catch (e) {
         return res.status(500).json(e)
     }
@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
     try {
         const user = await User.findById(req.params.id)
         const {password, updatedAt, ...other} = user._doc;
-        res.status(200).json(other)
+        return res.status(200).json(other)
     } catch (e) {
         return res.status(500).json(e)
     }

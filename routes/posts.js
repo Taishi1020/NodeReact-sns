@@ -97,4 +97,17 @@ router.get("/timeline/:userId", async(req, res) => {
         return res.status(500).json(e)
     }
 })
+
+
+//プロフィール専用のタイムラインの取得
+router.get("/profile/:username", async(req, res) => {
+    try{
+        const user = await User.findOne({username: req.params.username}); //findOneを使う場合はプロパティの指定が必要
+        const posts = await Post.find({userId: user._id})
+        return res.status(200).json(posts)
+    }catch (e) {
+        return res.status(500).json(e)
+    }
+})
+
 module.exports = router;

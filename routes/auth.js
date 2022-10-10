@@ -24,17 +24,17 @@ router.post("/register",async(req,res)=>{
 // 5 会っていれば、200番ステータスと、jsonフォーマットでデータを返す処理を作成させる
 // 1~5の処理に進まない場合ははレスポンスで500番エラーを返すk
 
+
+//３〜４のパスワード照合列挙内容その1
+// const vailedPassword = req.body.password === user.password　//trueの場合36行目のコード処理に移る falseの場合!legsterUserの処理に入る
+// if (!vailedPassword) return res.status(404).json("ユーザーが見つかりませんでした。")
+// return res.status(200).json(user)
+// //３〜４のパスワード照合列挙内容その２
 router.post("/login", async(req, res) => {
     //psotmanを使ってユーザーがの照合を確認する想定の記述↓
     try{
         const user = await User.findOne({email: req.body.email}) //ユーザーモデル内からemailを探す処理、無かったらcatch分に移る
         if (!user) return res.status(404).send("ユーザーが見つかりませんでした。")
-        //３〜４のパスワード照合列挙内容その1
-        // const vailedPassword = req.body.password === user.password　//trueの場合36行目のコード処理に移る falseの場合!legsterUserの処理に入る
-        // if (!vailedPassword) return res.status(404).json("ユーザーが見つかりませんでした。")
-        // return res.status(200).json(user)
-
-        // //３〜４のパスワード照合列挙内容その２
         if (user.password === req.body.password) {
             return res.status(200).json(user)
         }else{

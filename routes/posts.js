@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Post = require("../models/posts")
 const User = require("../models/User");
 
-//投稿
+//投稿を作成する
 router.post("/", async (req, res) => {
     const newPost = new Post(req.body)
     try {

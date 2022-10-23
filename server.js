@@ -6,6 +6,7 @@ const PORT = 3001;
 const usersRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
 const postRoute = require("./routes/posts")
+const uploadRoute = require("./routes/upload")
 
 //mogodb接続
 const mongoose = require("mongoose");
@@ -25,6 +26,7 @@ app.use(express.json())
 app.use("/api/users", usersRoute)
 app.use("/api/auth", authRoute)
 app.use("/api/posts", postRoute)
+app.use("/api/upload", uploadRoute)
 
 app.get("/", (req, res) => {
     res.send("hello express")

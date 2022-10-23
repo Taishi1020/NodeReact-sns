@@ -10,6 +10,7 @@ const uploadRoute = require("./routes/upload")
 
 //mogodb接続
 const mongoose = require("mongoose");
+const path = require("path")
 require("dotenv").config();
 
 //データーベース接続
@@ -22,6 +23,7 @@ mongoose
     })
 
 //ミドルウェア設定(routing設定)
+app.use("/images", express.static(path.join(__dirname, "public/images")))
 app.use(express.json())
 app.use("/api/users", usersRoute)
 app.use("/api/auth", authRoute)
